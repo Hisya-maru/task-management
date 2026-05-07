@@ -1,0 +1,33 @@
+header{
+    display: flex;
+    justify-content: center;
+    margin-bottom:20px ;
+}
+
+#input-area{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+#task-form{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+#taskText{
+    width: 500px;
+    padding: 8px;
+}
+#task-list{
+    width: 500px;
+    margin: 0 out;
+}
+#task-list{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+#empty-message{
+    text-align: center;
+    color: #000;
+}
