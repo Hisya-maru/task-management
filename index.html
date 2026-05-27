@@ -5,29 +5,10 @@
         <link rel="stylesheet" href="style.css">
         <title>Task management tool</title>
     </head>
-<body>
-    <header>Task Manager</header>
 
-    <section id="input-area">
-        <form id="task-form">
-            <input type="text" id="taskText" placeholder="タスクを入力">    <!--task text column-->
+    <body>
+        <div id="root"></div>
 
-            <select id="priority">      <!--pull down menue-->
-                <option value="">--優先度--</option>
-                <option value="S">S</option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
-            </select>       
-
-            <button type="submit">追加</button>    <!--add task btn-->
-        </form>
-    </section>
-
-    <div id="task-list">
-        <p id="empty-message">タスクはありません。</p>    <!--empty task situation-->  
-    </div>
-
-    <script src="script.js"></script>
-</body>
+        <script type="module" src="/src/App.jsx"></script>
+    </body>
 </html>

@@ -1,4 +1,6 @@
 import React ,{useState} from "react";
+import ReactDOM from "react-dom/client";
+
 
 function App(){
     const[tasks, setTasks] = useState([]); /*tasksは現在値、setTasksは値を更新する関数*/
@@ -10,7 +12,6 @@ const addTasks = () =>{
     const newTaskObject = {
         id: Date.now(),
         title: newTask,
-        priority: priority,
         completed: false
     };
     setTasks([...tasks, newTaskObject]); /*既存のタスクリストに追加 */
@@ -27,10 +28,11 @@ const toggleTaskCompleted = (id) =>{
 };
 
 /*タスクを削除する関数 */
-const deketeTask = (id) =>{
+const deleteTask = (id) =>{
     setTasks(tasks.filter((task) =>task.id !==id));
 };
 
+return(
 <div className="app-container">
     <h1 className="app-title">やることリスト</h1>
 
@@ -44,9 +46,36 @@ const deketeTask = (id) =>{
         />
 
         
-        <button onClick = {addtTask} className ="add-btn">追加</button>
+        <button onClick = {addTasks} className ="add-btn">追加</button>
     </div>
 
+    <ul className="task-list">
+        {tasks.map((task) => (
+            <li key={task.id} className="task-item">
+                <input
+                type="checkbox"
+                checked={task.completed}
+                onChange={() => toggleTaskCompleted(task.id)}
+                className="task-checkbox"
+                />
+                <span
+                className={`task-text ${task.completed ? "completed" : ""}`}
+                >
+                    {task.title}
+                </span>
+                <button
+                className="delete-button"
+                onClick={() => deleteTask(task.id)}
+                >
+                    削除
+                </button>
+            </li>
+        ))}
+    </ul>
 </div>
-
+);
 }
+ReactDOM.createRoot(document.getElementById("root")).render(
+    <App />
+);
+export default App;
