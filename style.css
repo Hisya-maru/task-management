@@ -1,15 +1,15 @@
-header{
+/*header{
     display: flex;
     justify-content: center;
     margin-bottom:20px ;
-}
+}*/
 
-#input-area{
+/*#input-area{
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
 }
-#task-form{
+    #task-form{
     display: flex;
     gap: 10px;
     align-items: center;
@@ -31,4 +31,4 @@ header{
 #empty-message{
     text-align: center;
     color: #000;
-}
+}*/

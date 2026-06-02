@@ -1,5 +1,4 @@
-import React ,{useState} from "react";
-import ReactDOM from "react-dom/client";
+import {useState} from "react";
 
 
 function App(){
@@ -75,7 +74,4 @@ return(
 </div>
 );
 }
-ReactDOM.createRoot(document.getElementById("root")).render(
-    <App />
-);
 export default App;
