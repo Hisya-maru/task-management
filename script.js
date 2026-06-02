@@ -38,7 +38,7 @@ function saveTasks(){
         //priority: prio,
         //completed: false,
         //urgency: 5
-    };
+    //};
 //配列に追加(状態更新)
     //tasks.push(task);
 

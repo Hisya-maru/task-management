@@ -1,122 +1,77 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import {useState} from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
 
-  return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+function App(){
+    const[tasks, setTasks] = useState([]); /*tasksは現在値、setTasksは値を更新する関数*/
+    const[newTask, setNewTask] = useState(""); /*newTaskは今入力されるタスク、setNewTaskは入力文字更新関数*/
 
-      <div className="ticks"></div>
+/*タスク追加関数 */
+const addTasks = () =>{
+    if (newTask.trim() ==="") return;   /*空のタスクは追加しない */
+    const newTaskObject = {
+        id: Date.now(),
+        title: newTask,
+        completed: false
+    };
+    setTasks([...tasks, newTaskObject]); /*既存のタスクリストに追加 */
+    setNewTask(""); /*入力欄を空に */
+} ;
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
+/*タスク完了を切り替える関数 */
+const toggleTaskCompleted = (id) =>{
+    setTasks(
+        tasks.map((task) =>
+        task.id === id ? {...task, completed: !task.completed} : task
+    )
+    );
+};
+
+/*タスクを削除する関数 */
+const deleteTask = (id) =>{
+    setTasks(tasks.filter((task) =>task.id !==id));
+};
+
+return(
+<div className="app-container">
+    <h1 className="app-title">やることリスト</h1>
+
+    <div className="task-input-container">
+        <input
+        type = "text"
+        value = {newTask}
+        onChange = {(e) => setNewTask(e.target.value)}
+        placeholder = "タスクを入力"
+        className = "task-input"
+        />
+
+        
+        <button onClick = {addTasks} className ="add-btn">追加</button>
+    </div>
+
+    <ul className="task-list">
+        {tasks.map((task) => (
+            <li key={task.id} className="task-item">
+                <input
+                type="checkbox"
+                checked={task.completed}
+                onChange={() => toggleTaskCompleted(task.id)}
+                className="task-checkbox"
+                />
+                <span
+                className={`task-text ${task.completed ? "completed" : ""}`}
                 >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
+                    {task.title}
+                </span>
+                <button
+                className="delete-button"
+                onClick={() => deleteTask(task.id)}
                 >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
+                    削除
+                </button>
             </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+        ))}
+    </ul>
+</div>
+);
 }
-
-export default App
+export default App;
