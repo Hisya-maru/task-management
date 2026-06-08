@@ -33,7 +33,7 @@ const deleteTask = (id) =>{
 
 return(
 <div className="app-container">
-    <h1 className="app-title">やることリスト</h1>
+    <h1 className="app-title">To Do リスト</h1>
 
     <div className="task-input-container">
         <input
