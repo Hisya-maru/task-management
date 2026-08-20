@@ -1,8 +1,6 @@
-require("dotenv").config();
-
 const express = require("express");//Express本体を読み込み
 const cors = require("cors")
-const todoRoutes = require("./routes/todoRoutes");
+const cors = require("./routes/todoRoutes");
 
 const app = express();
 
