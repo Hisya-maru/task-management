@@ -1,5 +1,4 @@
 import {useState, useEffect} from "react";
-//不具合修正
 
 
 function App(){
