@@ -1,6 +1,4 @@
 //TodoRutesはcontrollerに格納される各APIに取りつなぐ
-
-
 const express = require("express");
 const router = express.Router();
 
