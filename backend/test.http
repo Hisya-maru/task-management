@@ -1,8 +1,19 @@
+###ユーザー登録APIテスト用
 POST http://localhost:3000/api/auth/register
 Content-Type: application/json
 
 {
     "name":"田中正義",
+    "email":"test@example.com",
+    "password":"123456"
+}
+
+###ログインAPIテスト用
+
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
     "email":"test@example.com",
     "password":"123456"
 }

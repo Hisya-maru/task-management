@@ -49,7 +49,7 @@ exports.register = async (req,res) => {
 }
 
 //ログイン用API
-exports.login =async (req,res) =>{
+exports.login = async (req,res) =>{
     try{
         const {email,password} =req.body;
       //入力不足確認
