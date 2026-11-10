@@ -1,6 +1,8 @@
 
 const prisma = require("../library/prisma.js");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
 
 //ユーザー登録API
 exports.register = async (req,res) => {
@@ -75,12 +77,22 @@ exports.login = async (req,res) =>{
         if (!isMatch) {
             return res.status(401).json({error:'入力内容のいずれかが正しくありません。'});
         }
+      //JWT発行
+        const token = jwt.sign(
+            {
+                userId: existingUser.id,
+                email: existingUser.email
+            },
+            process.env.JWT_SECRET,
+            {
+                expiresIn: "1h"
+            }
+        );
 
-        if (isMatch) {
             return res.status(200).json({
-                message:`おかえりなさい${existingUser.name}さん`
+                message:`おかえりなさい${existingUser.name}さん`,
+                token
             });
-        }
 
     } catch (error) {
         console.error(error);
