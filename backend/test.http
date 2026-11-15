@@ -21,3 +21,16 @@ Content-Type: application/json
 ###JWT認証テスト用
 GET http://localhost:3000/api/todos
 Authorization: Bearer abcde
+
+###Todo作成
+POST http://localhost:3000/api/todos
+Authorization: Bearer トークン入力
+Content-Type: application/json
+
+{
+    "title": "認証テスト"
+}
+
+###
+GET http://localhost:3000/api/todos
+Authorization:  Bearer トークン入力

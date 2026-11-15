@@ -16,6 +16,8 @@ model Todo {
   id           Int       @id @default(autoincrement())
   title        String    //Not Null タスク名が必須
   completed    Boolean   @default(false)
+  userId       Int
+  user         user      @relation(fields: [userId], references: [id])
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
 }
@@ -25,6 +27,8 @@ model user {
   name         String
   email        String    @unique
   passwordHash String    
-  crestedAt    DateTime  @default(now())
+  createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
+
+todos          Todo[]  
 }

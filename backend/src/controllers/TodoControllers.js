@@ -4,7 +4,11 @@ const prisma = require("../library/prisma");  //Prisma Clientを読み込む。
 //GET API
 exports.getTodos = async (req, res) =>{
     try{
-        const todos = await prisma.todo.findMany(); //DBから全権取得
+        const todos = await prisma.todo.findMany({
+            where: {
+                userId: req.user.userId
+            }
+        }); //DBから全権取得
         res.json(todos); //クライアントに返す
     }catch(error) {
         console.error(error);
@@ -15,8 +19,13 @@ exports.getTodos = async (req, res) =>{
 //POST API
 exports.createTodo = async (req, res) =>{
     try{
+        const{ title } = req.body;
+
         const newTodo = await prisma.todo.create({
-            data: {title},
+            data: {
+                title,
+                userId: req.user.userId
+            },
         });
         res.json(newTodo);
        }catch(error){

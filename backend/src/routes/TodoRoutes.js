@@ -2,6 +2,8 @@
 const express = require("express");
 const router = express.Router();
 
+const authMiddleware = require("../Middleware/authMiddleware");
+
 const { getTodos,createTodo,updateTodo,deleteTodo } = require("../controllers/TodoControllers"); //コントローラーからGET処理を読み込む。
 
 router.get("/",authMiddleware,getTodos); //GET /api/todos
