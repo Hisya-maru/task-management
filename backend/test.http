@@ -38,8 +38,10 @@ Authorization:  Bearer トークン入力
 ###チーム作成APIテスト
 POST http://localhost:3000/api/teams/createTeam
 Authorization: Bearer 
-Content-Type: application/json
-
 {
     "name":"開発チーム"
 }
+
+###所属チーム一覧取得APIテスト
+GET http://localhost:3000/api/teams/getTeams
+Authorization:  Bearer 

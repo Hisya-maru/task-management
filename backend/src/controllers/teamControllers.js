@@ -30,3 +30,21 @@ exports.createTeam = async(req,res) => {
     }
 
 }
+
+//所属チーム一覧取得API
+exports.getTeams = async(req,res) => {
+    try{
+        const teams = await prisma.teamMember.findMany({
+            where:{
+                userId: req.user.userId
+            },
+            include:{
+                team: true
+            }
+        });
+        return res.status(200).json(teams);
+    }catch (error) {
+        console.error(error);
+        return res.status(500).json({error: 'チーム取得に失敗しました。'});
+    }
+}
