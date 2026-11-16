@@ -37,7 +37,7 @@ Authorization:  Bearer トークン入力
 
 ###チーム作成APIテスト
 POST http://localhost:3000/api/teams/createTeam
-Authorization: Bearer トークン入力
+Authorization: Bearer 
 Content-Type: application/json
 
 {

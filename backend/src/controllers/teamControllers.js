@@ -1,5 +1,6 @@
 const prisma = require("../library/prisma.js");
 
+//チーム作成API
 exports.createTeam = async(req,res) => {
     try{
         const{name} =req.body;
@@ -13,6 +14,13 @@ exports.createTeam = async(req,res) => {
                 name
             }
         });
+
+        await prisma.teamMember.create({
+            data: {
+                userId: req.user.userId,
+                teamId: team.id
+            }
+        })
         return res.status(201).json({message: 'チーム作成が完了しました。'});
 
     }catch (error) {
