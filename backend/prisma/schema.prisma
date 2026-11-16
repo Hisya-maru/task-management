@@ -16,8 +16,10 @@ model Todo {
   id           Int       @id @default(autoincrement())
   title        String    //Not Null タスク名が必須
   completed    Boolean   @default(false)
+
   userId       Int
   user         user      @relation(fields: [userId], references: [id])
+
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
 }
@@ -31,4 +33,22 @@ model user {
   updatedAt    DateTime  @updatedAt
 
 todos          Todo[]  
+teams          TeamMember[]
+}
+
+model Team {
+  id           Int        @id @default(autoincrement())
+  name         String
+
+  members      TeamMember[]
+}
+
+model TeamMember {
+  id           Int         @id @default(autoincrement())
+
+  userId       Int
+  teamId       Int
+
+  user         user        @relation(fields: [userId], references: [id])
+  team         Team        @relation(fields: [teamId],references: [id])
 }
