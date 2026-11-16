@@ -1,4 +1,3 @@
-
 const prisma = require("../library/prisma.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -11,9 +10,7 @@ exports.register = async (req,res) => {
 
        //入力不足チェック
         if (!name || !email ||!password) {
-            return res.status(400).json({ error:'すべての項目を入力してください。'
-
-            });
+            return res.status(400).json({ error:'すべての項目を入力してください。'});
         }
        //メール重複チェック
         const existingUser = await prisma.user.findUnique({

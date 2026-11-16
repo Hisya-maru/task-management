@@ -138,6 +138,17 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.TeamScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+};
+
+exports.Prisma.TeamMemberScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  teamId: 'teamId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -151,7 +162,9 @@ exports.Prisma.QueryMode = {
 
 exports.Prisma.ModelName = {
   Todo: 'Todo',
-  user: 'user'
+  user: 'user',
+  Team: 'Team',
+  TeamMember: 'TeamMember'
 };
 
 /**

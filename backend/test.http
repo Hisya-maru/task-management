@@ -34,3 +34,12 @@ Content-Type: application/json
 ###
 GET http://localhost:3000/api/todos
 Authorization:  Bearer トークン入力
+
+###チーム作成APIテスト
+POST http://localhost:3000/api/teams/createTeam
+Authorization: Bearer トークン入力
+Content-Type: application/json
+
+{
+    "name":"開発チーム"
+}
