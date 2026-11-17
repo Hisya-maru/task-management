@@ -37,7 +37,7 @@ Authorization:  Bearer トークン入力
 
 ###チーム作成APIテスト
 POST http://localhost:3000/api/teams/createTeam
-Authorization: Bearer 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoidGVzdEBleGFtcGxlLmNvbSIsImlhdCI6MTc5NDg3ODQ3NCwiZXhwIjoxNzk0ODgyMDc0fQ.1o2f9UscS0qoQ7HEFa7i224EGIaQBCqdwqXer72Hlj4
 {
     "name":"開発チーム"
 }
@@ -45,3 +45,7 @@ Authorization: Bearer
 ###所属チーム一覧取得APIテスト
 GET http://localhost:3000/api/teams/getTeams
 Authorization:  Bearer 
+
+###チーム参加APIテスト
+POST http://localhost:3000/api/teams/3/join
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoidGVzdEBleGFtcGxlLmNvbSIsImlhdCI6MTc5NDg3ODQ3NCwiZXhwIjoxNzk0ODgyMDc0fQ.1o2f9UscS0qoQ7HEFa7i224EGIaQBCqdwqXer72Hlj4

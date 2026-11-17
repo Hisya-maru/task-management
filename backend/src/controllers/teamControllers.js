@@ -47,4 +47,28 @@ exports.getTeams = async(req,res) => {
         console.error(error);
         return res.status(500).json({error: 'チーム取得に失敗しました。'});
     }
-}
+};
+
+//チーム参加用API
+exports.joinTeam = async(req,res) => {
+    try{
+        const teamId = parseInt(req.params.id);
+
+        await prisma.teamMember.create({
+            data:
+            {
+                userId: req.user.userId,
+                teamId
+            }
+        });
+
+        return res.status(201).json({
+            message: 'チームに参加しました。'
+        });
+
+    }catch (error) {
+        console.error(error);
+        return res.status(500).json({error: 'チーム参加に失敗しました。'});
+    }
+};
+
