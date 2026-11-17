@@ -16,21 +16,40 @@ exports.getTodos = async (req, res) =>{
     }
 };
 
-//POST API
+//Todo作成API
 exports.createTodo = async (req, res) =>{
     try{
-        const{ title } = req.body;
+        const{ title,teamId } = req.body;
 
+        if(!title) {
+            return res.status(400).json({error:'タイトルを入力してください。'});
+        }
+
+        if (teamId) {
+            const member = await prisma.teamMember.findFirst({
+                where: {
+                    userId: req.user.userId,
+                    teamId
+                }
+            });
+            
+            if (!member) {
+            return res.status(403).json({error:'このチームにアクセスすることができません。'});
+        }
+        }
+        
         const newTodo = await prisma.todo.create({
             data: {
                 title,
-                userId: req.user.userId
+                userId: req.user.userId,
+                teamId
             },
         });
-        res.json(newTodo);
+        return res.status(201).json(newTodo);
+        
        }catch(error){
         console.error(error);
-        res.status(500).json({error:"Failed to create todo"});
+        res.status(500).json({error:"作成に失敗しました。"});
        }
 };
 

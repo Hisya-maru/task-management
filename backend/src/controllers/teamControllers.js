@@ -71,4 +71,3 @@ exports.joinTeam = async(req,res) => {
         return res.status(500).json({error: 'チーム参加に失敗しました。'});
     }
 };
-
