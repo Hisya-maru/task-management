@@ -33,17 +33,17 @@ Content-Type: application/json
 
 ###
 GET http://localhost:3000/api/todos
-Authorization:  Bearer トークン入力
+Authorization:  Bearer YOUR_JWT_TOKEN
 
 ###チーム作成APIテスト
 POST http://localhost:3000/api/teams/createTeam
-Authorization: Bearer 
+Authorization: Bearer YOUR_JWT_TOKEN
 }
 
 ###所属チーム一覧取得APIテスト
 GET http://localhost:3000/api/teams/getTeams
-Authorization:  Bearer 
+Authorization:  Bearer YOUR_JWT_TOKEN
 
 ###チーム参加APIテスト
 POST http://localhost:3000/api/teams/3/join
-Authorization: Bearer 
+Authorization: Bearer YOUR_JWT_TOKEN

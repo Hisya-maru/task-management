@@ -1,18 +1,32 @@
 //TodoControllerにAPI本体が格納されている。
 const prisma = require("../library/prisma");  //Prisma Clientを読み込む。
 
-//GET API
+//Todo取得 API
 exports.getTodos = async (req, res) =>{
     try{
-        const todos = await prisma.todo.findMany({
+        const memberships = await prisma.teamMember.findMany({
             where: {
                 userId: req.user.userId
             }
-        }); //DBから全権取得
-        res.json(todos); //クライアントに返す
-    }catch(error) {
+        });
+
+        const teamIds = memberships.map(
+            member => member.teamId
+        );
+
+        const todos = await prisma.todo.findMany({
+            where:{
+                OR: [
+                    {userId: req.user.userId},
+                    {teamId: {in: teamIds}
+                }
+                ]
+            }
+        }); 
+        return res.json(todos); 
+    } catch (error) {
         console.error(error);
-        res.status(500).json({error: "Failed to fetch todos"});
+        res.status(500).json({error: "取得に失敗しました。"});
     }
 };
 
@@ -46,7 +60,7 @@ exports.createTodo = async (req, res) =>{
             },
         });
         return res.status(201).json(newTodo);
-        
+
        }catch(error){
         console.error(error);
         res.status(500).json({error:"作成に失敗しました。"});
