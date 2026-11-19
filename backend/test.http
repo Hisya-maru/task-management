@@ -47,3 +47,18 @@ Authorization:  Bearer YOUR_JWT_TOKEN
 ###チーム参加APIテスト
 POST http://localhost:3000/api/teams/3/join
 Authorization: Bearer YOUR_JWT_TOKEN
+
+###チームTodo作成APIテスト
+POST http://localhost:3000/api/todos
+Authorization: Bearer 
+Content-Type: application/json
+
+{
+    "title": "共有タスク",
+    "teamId": 3
+}
+
+###チームTodo取得APIテスト
+GET  http://localhost:3000/api/todos
+Authorization: Bearer 
+Content-Type: application/json

@@ -1208,10 +1208,12 @@ export namespace Prisma {
 
   export type TeamCountOutputType = {
     members: number
+    todos: number
   }
 
   export type TeamCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     members?: boolean | TeamCountOutputTypeCountMembersArgs
+    todos?: boolean | TeamCountOutputTypeCountTodosArgs
   }
 
   // Custom InputTypes
@@ -1230,6 +1232,13 @@ export namespace Prisma {
    */
   export type TeamCountOutputTypeCountMembersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TeamMemberWhereInput
+  }
+
+  /**
+   * TeamCountOutputType without action
+   */
+  export type TeamCountOutputTypeCountTodosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TodoWhereInput
   }
 
 
@@ -1252,11 +1261,13 @@ export namespace Prisma {
   export type TodoAvgAggregateOutputType = {
     id: number | null
     userId: number | null
+    teamId: number | null
   }
 
   export type TodoSumAggregateOutputType = {
     id: number | null
     userId: number | null
+    teamId: number | null
   }
 
   export type TodoMinAggregateOutputType = {
@@ -1264,6 +1275,7 @@ export namespace Prisma {
     title: string | null
     completed: boolean | null
     userId: number | null
+    teamId: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1273,6 +1285,7 @@ export namespace Prisma {
     title: string | null
     completed: boolean | null
     userId: number | null
+    teamId: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1282,6 +1295,7 @@ export namespace Prisma {
     title: number
     completed: number
     userId: number
+    teamId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1291,11 +1305,13 @@ export namespace Prisma {
   export type TodoAvgAggregateInputType = {
     id?: true
     userId?: true
+    teamId?: true
   }
 
   export type TodoSumAggregateInputType = {
     id?: true
     userId?: true
+    teamId?: true
   }
 
   export type TodoMinAggregateInputType = {
@@ -1303,6 +1319,7 @@ export namespace Prisma {
     title?: true
     completed?: true
     userId?: true
+    teamId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1312,6 +1329,7 @@ export namespace Prisma {
     title?: true
     completed?: true
     userId?: true
+    teamId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1321,6 +1339,7 @@ export namespace Prisma {
     title?: true
     completed?: true
     userId?: true
+    teamId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1417,6 +1436,7 @@ export namespace Prisma {
     title: string
     completed: boolean
     userId: number
+    teamId: number | null
     createdAt: Date
     updatedAt: Date
     _count: TodoCountAggregateOutputType | null
@@ -1445,9 +1465,11 @@ export namespace Prisma {
     title?: boolean
     completed?: boolean
     userId?: boolean
+    teamId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | userDefaultArgs<ExtArgs>
+    team?: boolean | Todo$teamArgs<ExtArgs>
   }, ExtArgs["result"]["todo"]>
 
   export type TodoSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1455,9 +1477,11 @@ export namespace Prisma {
     title?: boolean
     completed?: boolean
     userId?: boolean
+    teamId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | userDefaultArgs<ExtArgs>
+    team?: boolean | Todo$teamArgs<ExtArgs>
   }, ExtArgs["result"]["todo"]>
 
   export type TodoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1465,9 +1489,11 @@ export namespace Prisma {
     title?: boolean
     completed?: boolean
     userId?: boolean
+    teamId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | userDefaultArgs<ExtArgs>
+    team?: boolean | Todo$teamArgs<ExtArgs>
   }, ExtArgs["result"]["todo"]>
 
   export type TodoSelectScalar = {
@@ -1475,31 +1501,37 @@ export namespace Prisma {
     title?: boolean
     completed?: boolean
     userId?: boolean
+    teamId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type TodoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "completed" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["todo"]>
+  export type TodoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "completed" | "userId" | "teamId" | "createdAt" | "updatedAt", ExtArgs["result"]["todo"]>
   export type TodoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | userDefaultArgs<ExtArgs>
+    team?: boolean | Todo$teamArgs<ExtArgs>
   }
   export type TodoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | userDefaultArgs<ExtArgs>
+    team?: boolean | Todo$teamArgs<ExtArgs>
   }
   export type TodoIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | userDefaultArgs<ExtArgs>
+    team?: boolean | Todo$teamArgs<ExtArgs>
   }
 
   export type $TodoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Todo"
     objects: {
       user: Prisma.$userPayload<ExtArgs>
+      team: Prisma.$TeamPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       title: string
       completed: boolean
       userId: number
+      teamId: number | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["todo"]>
@@ -1897,6 +1929,7 @@ export namespace Prisma {
   export interface Prisma__TodoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends userDefaultArgs<ExtArgs> = {}>(args?: Subset<T, userDefaultArgs<ExtArgs>>): Prisma__userClient<$Result.GetResult<Prisma.$userPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    team<T extends Todo$teamArgs<ExtArgs> = {}>(args?: Subset<T, Todo$teamArgs<ExtArgs>>): Prisma__TeamClient<$Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1930,6 +1963,7 @@ export namespace Prisma {
     readonly title: FieldRef<"Todo", 'String'>
     readonly completed: FieldRef<"Todo", 'Boolean'>
     readonly userId: FieldRef<"Todo", 'Int'>
+    readonly teamId: FieldRef<"Todo", 'Int'>
     readonly createdAt: FieldRef<"Todo", 'DateTime'>
     readonly updatedAt: FieldRef<"Todo", 'DateTime'>
   }
@@ -2330,6 +2364,25 @@ export namespace Prisma {
      * Limit how many Todos to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Todo.team
+   */
+  export type Todo$teamArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Team
+     */
+    select?: TeamSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Team
+     */
+    omit?: TeamOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TeamInclude<ExtArgs> | null
+    where?: TeamWhereInput
   }
 
   /**
@@ -3676,6 +3729,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     members?: boolean | Team$membersArgs<ExtArgs>
+    todos?: boolean | Team$todosArgs<ExtArgs>
     _count?: boolean | TeamCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["team"]>
 
@@ -3697,6 +3751,7 @@ export namespace Prisma {
   export type TeamOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name", ExtArgs["result"]["team"]>
   export type TeamInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     members?: boolean | Team$membersArgs<ExtArgs>
+    todos?: boolean | Team$todosArgs<ExtArgs>
     _count?: boolean | TeamCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TeamIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -3706,6 +3761,7 @@ export namespace Prisma {
     name: "Team"
     objects: {
       members: Prisma.$TeamMemberPayload<ExtArgs>[]
+      todos: Prisma.$TodoPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -4105,6 +4161,7 @@ export namespace Prisma {
   export interface Prisma__TeamClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     members<T extends Team$membersArgs<ExtArgs> = {}>(args?: Subset<T, Team$membersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TeamMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    todos<T extends Team$todosArgs<ExtArgs> = {}>(args?: Subset<T, Team$todosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TodoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4550,6 +4607,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: TeamMemberScalarFieldEnum | TeamMemberScalarFieldEnum[]
+  }
+
+  /**
+   * Team.todos
+   */
+  export type Team$todosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Todo
+     */
+    select?: TodoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Todo
+     */
+    omit?: TodoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoInclude<ExtArgs> | null
+    where?: TodoWhereInput
+    orderBy?: TodoOrderByWithRelationInput | TodoOrderByWithRelationInput[]
+    cursor?: TodoWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TodoScalarFieldEnum | TodoScalarFieldEnum[]
   }
 
   /**
@@ -5677,6 +5758,7 @@ export namespace Prisma {
     title: 'title',
     completed: 'completed',
     userId: 'userId',
+    teamId: 'teamId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -5727,6 +5809,14 @@ export namespace Prisma {
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -5808,9 +5898,11 @@ export namespace Prisma {
     title?: StringFilter<"Todo"> | string
     completed?: BoolFilter<"Todo"> | boolean
     userId?: IntFilter<"Todo"> | number
+    teamId?: IntNullableFilter<"Todo"> | number | null
     createdAt?: DateTimeFilter<"Todo"> | Date | string
     updatedAt?: DateTimeFilter<"Todo"> | Date | string
     user?: XOR<UserScalarRelationFilter, userWhereInput>
+    team?: XOR<TeamNullableScalarRelationFilter, TeamWhereInput> | null
   }
 
   export type TodoOrderByWithRelationInput = {
@@ -5818,9 +5910,11 @@ export namespace Prisma {
     title?: SortOrder
     completed?: SortOrder
     userId?: SortOrder
+    teamId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: userOrderByWithRelationInput
+    team?: TeamOrderByWithRelationInput
   }
 
   export type TodoWhereUniqueInput = Prisma.AtLeast<{
@@ -5831,9 +5925,11 @@ export namespace Prisma {
     title?: StringFilter<"Todo"> | string
     completed?: BoolFilter<"Todo"> | boolean
     userId?: IntFilter<"Todo"> | number
+    teamId?: IntNullableFilter<"Todo"> | number | null
     createdAt?: DateTimeFilter<"Todo"> | Date | string
     updatedAt?: DateTimeFilter<"Todo"> | Date | string
     user?: XOR<UserScalarRelationFilter, userWhereInput>
+    team?: XOR<TeamNullableScalarRelationFilter, TeamWhereInput> | null
   }, "id">
 
   export type TodoOrderByWithAggregationInput = {
@@ -5841,6 +5937,7 @@ export namespace Prisma {
     title?: SortOrder
     completed?: SortOrder
     userId?: SortOrder
+    teamId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: TodoCountOrderByAggregateInput
@@ -5858,6 +5955,7 @@ export namespace Prisma {
     title?: StringWithAggregatesFilter<"Todo"> | string
     completed?: BoolWithAggregatesFilter<"Todo"> | boolean
     userId?: IntWithAggregatesFilter<"Todo"> | number
+    teamId?: IntNullableWithAggregatesFilter<"Todo"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"Todo"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Todo"> | Date | string
   }
@@ -5934,12 +6032,14 @@ export namespace Prisma {
     id?: IntFilter<"Team"> | number
     name?: StringFilter<"Team"> | string
     members?: TeamMemberListRelationFilter
+    todos?: TodoListRelationFilter
   }
 
   export type TeamOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
     members?: TeamMemberOrderByRelationAggregateInput
+    todos?: TodoOrderByRelationAggregateInput
   }
 
   export type TeamWhereUniqueInput = Prisma.AtLeast<{
@@ -5949,6 +6049,7 @@ export namespace Prisma {
     NOT?: TeamWhereInput | TeamWhereInput[]
     name?: StringFilter<"Team"> | string
     members?: TeamMemberListRelationFilter
+    todos?: TodoListRelationFilter
   }, "id">
 
   export type TeamOrderByWithAggregationInput = {
@@ -6025,6 +6126,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: userCreateNestedOneWithoutTodosInput
+    team?: TeamCreateNestedOneWithoutTodosInput
   }
 
   export type TodoUncheckedCreateInput = {
@@ -6032,6 +6134,7 @@ export namespace Prisma {
     title: string
     completed?: boolean
     userId: number
+    teamId?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -6042,6 +6145,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: userUpdateOneRequiredWithoutTodosNestedInput
+    team?: TeamUpdateOneWithoutTodosNestedInput
   }
 
   export type TodoUncheckedUpdateInput = {
@@ -6049,6 +6153,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     completed?: BoolFieldUpdateOperationsInput | boolean
     userId?: IntFieldUpdateOperationsInput | number
+    teamId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6058,6 +6163,7 @@ export namespace Prisma {
     title: string
     completed?: boolean
     userId: number
+    teamId?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -6074,6 +6180,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     completed?: BoolFieldUpdateOperationsInput | boolean
     userId?: IntFieldUpdateOperationsInput | number
+    teamId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6149,23 +6256,27 @@ export namespace Prisma {
   export type TeamCreateInput = {
     name: string
     members?: TeamMemberCreateNestedManyWithoutTeamInput
+    todos?: TodoCreateNestedManyWithoutTeamInput
   }
 
   export type TeamUncheckedCreateInput = {
     id?: number
     name: string
     members?: TeamMemberUncheckedCreateNestedManyWithoutTeamInput
+    todos?: TodoUncheckedCreateNestedManyWithoutTeamInput
   }
 
   export type TeamUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     members?: TeamMemberUpdateManyWithoutTeamNestedInput
+    todos?: TodoUpdateManyWithoutTeamNestedInput
   }
 
   export type TeamUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     members?: TeamMemberUncheckedUpdateManyWithoutTeamNestedInput
+    todos?: TodoUncheckedUpdateManyWithoutTeamNestedInput
   }
 
   export type TeamCreateManyInput = {
@@ -6251,6 +6362,17 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -6267,11 +6389,22 @@ export namespace Prisma {
     isNot?: userWhereInput
   }
 
+  export type TeamNullableScalarRelationFilter = {
+    is?: TeamWhereInput | null
+    isNot?: TeamWhereInput | null
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
   export type TodoCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     completed?: SortOrder
     userId?: SortOrder
+    teamId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -6279,6 +6412,7 @@ export namespace Prisma {
   export type TodoAvgOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    teamId?: SortOrder
   }
 
   export type TodoMaxOrderByAggregateInput = {
@@ -6286,6 +6420,7 @@ export namespace Prisma {
     title?: SortOrder
     completed?: SortOrder
     userId?: SortOrder
+    teamId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -6295,6 +6430,7 @@ export namespace Prisma {
     title?: SortOrder
     completed?: SortOrder
     userId?: SortOrder
+    teamId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -6302,6 +6438,7 @@ export namespace Prisma {
   export type TodoSumOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    teamId?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -6344,6 +6481,22 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -6479,6 +6632,12 @@ export namespace Prisma {
     connect?: userWhereUniqueInput
   }
 
+  export type TeamCreateNestedOneWithoutTodosInput = {
+    create?: XOR<TeamCreateWithoutTodosInput, TeamUncheckedCreateWithoutTodosInput>
+    connectOrCreate?: TeamCreateOrConnectWithoutTodosInput
+    connect?: TeamWhereUniqueInput
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -6499,8 +6658,26 @@ export namespace Prisma {
     update?: XOR<XOR<userUpdateToOneWithWhereWithoutTodosInput, userUpdateWithoutTodosInput>, userUncheckedUpdateWithoutTodosInput>
   }
 
+  export type TeamUpdateOneWithoutTodosNestedInput = {
+    create?: XOR<TeamCreateWithoutTodosInput, TeamUncheckedCreateWithoutTodosInput>
+    connectOrCreate?: TeamCreateOrConnectWithoutTodosInput
+    upsert?: TeamUpsertWithoutTodosInput
+    disconnect?: TeamWhereInput | boolean
+    delete?: TeamWhereInput | boolean
+    connect?: TeamWhereUniqueInput
+    update?: XOR<XOR<TeamUpdateToOneWithWhereWithoutTodosInput, TeamUpdateWithoutTodosInput>, TeamUncheckedUpdateWithoutTodosInput>
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
     increment?: number
     decrement?: number
     multiply?: number
@@ -6598,11 +6775,25 @@ export namespace Prisma {
     connect?: TeamMemberWhereUniqueInput | TeamMemberWhereUniqueInput[]
   }
 
+  export type TodoCreateNestedManyWithoutTeamInput = {
+    create?: XOR<TodoCreateWithoutTeamInput, TodoUncheckedCreateWithoutTeamInput> | TodoCreateWithoutTeamInput[] | TodoUncheckedCreateWithoutTeamInput[]
+    connectOrCreate?: TodoCreateOrConnectWithoutTeamInput | TodoCreateOrConnectWithoutTeamInput[]
+    createMany?: TodoCreateManyTeamInputEnvelope
+    connect?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
+  }
+
   export type TeamMemberUncheckedCreateNestedManyWithoutTeamInput = {
     create?: XOR<TeamMemberCreateWithoutTeamInput, TeamMemberUncheckedCreateWithoutTeamInput> | TeamMemberCreateWithoutTeamInput[] | TeamMemberUncheckedCreateWithoutTeamInput[]
     connectOrCreate?: TeamMemberCreateOrConnectWithoutTeamInput | TeamMemberCreateOrConnectWithoutTeamInput[]
     createMany?: TeamMemberCreateManyTeamInputEnvelope
     connect?: TeamMemberWhereUniqueInput | TeamMemberWhereUniqueInput[]
+  }
+
+  export type TodoUncheckedCreateNestedManyWithoutTeamInput = {
+    create?: XOR<TodoCreateWithoutTeamInput, TodoUncheckedCreateWithoutTeamInput> | TodoCreateWithoutTeamInput[] | TodoUncheckedCreateWithoutTeamInput[]
+    connectOrCreate?: TodoCreateOrConnectWithoutTeamInput | TodoCreateOrConnectWithoutTeamInput[]
+    createMany?: TodoCreateManyTeamInputEnvelope
+    connect?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
   }
 
   export type TeamMemberUpdateManyWithoutTeamNestedInput = {
@@ -6619,6 +6810,20 @@ export namespace Prisma {
     deleteMany?: TeamMemberScalarWhereInput | TeamMemberScalarWhereInput[]
   }
 
+  export type TodoUpdateManyWithoutTeamNestedInput = {
+    create?: XOR<TodoCreateWithoutTeamInput, TodoUncheckedCreateWithoutTeamInput> | TodoCreateWithoutTeamInput[] | TodoUncheckedCreateWithoutTeamInput[]
+    connectOrCreate?: TodoCreateOrConnectWithoutTeamInput | TodoCreateOrConnectWithoutTeamInput[]
+    upsert?: TodoUpsertWithWhereUniqueWithoutTeamInput | TodoUpsertWithWhereUniqueWithoutTeamInput[]
+    createMany?: TodoCreateManyTeamInputEnvelope
+    set?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
+    disconnect?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
+    delete?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
+    connect?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
+    update?: TodoUpdateWithWhereUniqueWithoutTeamInput | TodoUpdateWithWhereUniqueWithoutTeamInput[]
+    updateMany?: TodoUpdateManyWithWhereWithoutTeamInput | TodoUpdateManyWithWhereWithoutTeamInput[]
+    deleteMany?: TodoScalarWhereInput | TodoScalarWhereInput[]
+  }
+
   export type TeamMemberUncheckedUpdateManyWithoutTeamNestedInput = {
     create?: XOR<TeamMemberCreateWithoutTeamInput, TeamMemberUncheckedCreateWithoutTeamInput> | TeamMemberCreateWithoutTeamInput[] | TeamMemberUncheckedCreateWithoutTeamInput[]
     connectOrCreate?: TeamMemberCreateOrConnectWithoutTeamInput | TeamMemberCreateOrConnectWithoutTeamInput[]
@@ -6631,6 +6836,20 @@ export namespace Prisma {
     update?: TeamMemberUpdateWithWhereUniqueWithoutTeamInput | TeamMemberUpdateWithWhereUniqueWithoutTeamInput[]
     updateMany?: TeamMemberUpdateManyWithWhereWithoutTeamInput | TeamMemberUpdateManyWithWhereWithoutTeamInput[]
     deleteMany?: TeamMemberScalarWhereInput | TeamMemberScalarWhereInput[]
+  }
+
+  export type TodoUncheckedUpdateManyWithoutTeamNestedInput = {
+    create?: XOR<TodoCreateWithoutTeamInput, TodoUncheckedCreateWithoutTeamInput> | TodoCreateWithoutTeamInput[] | TodoUncheckedCreateWithoutTeamInput[]
+    connectOrCreate?: TodoCreateOrConnectWithoutTeamInput | TodoCreateOrConnectWithoutTeamInput[]
+    upsert?: TodoUpsertWithWhereUniqueWithoutTeamInput | TodoUpsertWithWhereUniqueWithoutTeamInput[]
+    createMany?: TodoCreateManyTeamInputEnvelope
+    set?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
+    disconnect?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
+    delete?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
+    connect?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
+    update?: TodoUpdateWithWhereUniqueWithoutTeamInput | TodoUpdateWithWhereUniqueWithoutTeamInput[]
+    updateMany?: TodoUpdateManyWithWhereWithoutTeamInput | TodoUpdateManyWithWhereWithoutTeamInput[]
+    deleteMany?: TodoScalarWhereInput | TodoScalarWhereInput[]
   }
 
   export type userCreateNestedOneWithoutTeamsInput = {
@@ -6689,6 +6908,17 @@ export namespace Prisma {
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -6754,6 +6984,33 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -6792,6 +7049,22 @@ export namespace Prisma {
     create: XOR<userCreateWithoutTodosInput, userUncheckedCreateWithoutTodosInput>
   }
 
+  export type TeamCreateWithoutTodosInput = {
+    name: string
+    members?: TeamMemberCreateNestedManyWithoutTeamInput
+  }
+
+  export type TeamUncheckedCreateWithoutTodosInput = {
+    id?: number
+    name: string
+    members?: TeamMemberUncheckedCreateNestedManyWithoutTeamInput
+  }
+
+  export type TeamCreateOrConnectWithoutTodosInput = {
+    where: TeamWhereUniqueInput
+    create: XOR<TeamCreateWithoutTodosInput, TeamUncheckedCreateWithoutTodosInput>
+  }
+
   export type userUpsertWithoutTodosInput = {
     update: XOR<userUpdateWithoutTodosInput, userUncheckedUpdateWithoutTodosInput>
     create: XOR<userCreateWithoutTodosInput, userUncheckedCreateWithoutTodosInput>
@@ -6822,17 +7095,41 @@ export namespace Prisma {
     teams?: TeamMemberUncheckedUpdateManyWithoutUserNestedInput
   }
 
+  export type TeamUpsertWithoutTodosInput = {
+    update: XOR<TeamUpdateWithoutTodosInput, TeamUncheckedUpdateWithoutTodosInput>
+    create: XOR<TeamCreateWithoutTodosInput, TeamUncheckedCreateWithoutTodosInput>
+    where?: TeamWhereInput
+  }
+
+  export type TeamUpdateToOneWithWhereWithoutTodosInput = {
+    where?: TeamWhereInput
+    data: XOR<TeamUpdateWithoutTodosInput, TeamUncheckedUpdateWithoutTodosInput>
+  }
+
+  export type TeamUpdateWithoutTodosInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    members?: TeamMemberUpdateManyWithoutTeamNestedInput
+  }
+
+  export type TeamUncheckedUpdateWithoutTodosInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    members?: TeamMemberUncheckedUpdateManyWithoutTeamNestedInput
+  }
+
   export type TodoCreateWithoutUserInput = {
     title: string
     completed?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    team?: TeamCreateNestedOneWithoutTodosInput
   }
 
   export type TodoUncheckedCreateWithoutUserInput = {
     id?: number
     title: string
     completed?: boolean
+    teamId?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -6890,6 +7187,7 @@ export namespace Prisma {
     title?: StringFilter<"Todo"> | string
     completed?: BoolFilter<"Todo"> | boolean
     userId?: IntFilter<"Todo"> | number
+    teamId?: IntNullableFilter<"Todo"> | number | null
     createdAt?: DateTimeFilter<"Todo"> | Date | string
     updatedAt?: DateTimeFilter<"Todo"> | Date | string
   }
@@ -6938,6 +7236,33 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type TodoCreateWithoutTeamInput = {
+    title: string
+    completed?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: userCreateNestedOneWithoutTodosInput
+  }
+
+  export type TodoUncheckedCreateWithoutTeamInput = {
+    id?: number
+    title: string
+    completed?: boolean
+    userId: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TodoCreateOrConnectWithoutTeamInput = {
+    where: TodoWhereUniqueInput
+    create: XOR<TodoCreateWithoutTeamInput, TodoUncheckedCreateWithoutTeamInput>
+  }
+
+  export type TodoCreateManyTeamInputEnvelope = {
+    data: TodoCreateManyTeamInput | TodoCreateManyTeamInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TeamMemberUpsertWithWhereUniqueWithoutTeamInput = {
     where: TeamMemberWhereUniqueInput
     update: XOR<TeamMemberUpdateWithoutTeamInput, TeamMemberUncheckedUpdateWithoutTeamInput>
@@ -6952,6 +7277,22 @@ export namespace Prisma {
   export type TeamMemberUpdateManyWithWhereWithoutTeamInput = {
     where: TeamMemberScalarWhereInput
     data: XOR<TeamMemberUpdateManyMutationInput, TeamMemberUncheckedUpdateManyWithoutTeamInput>
+  }
+
+  export type TodoUpsertWithWhereUniqueWithoutTeamInput = {
+    where: TodoWhereUniqueInput
+    update: XOR<TodoUpdateWithoutTeamInput, TodoUncheckedUpdateWithoutTeamInput>
+    create: XOR<TodoCreateWithoutTeamInput, TodoUncheckedCreateWithoutTeamInput>
+  }
+
+  export type TodoUpdateWithWhereUniqueWithoutTeamInput = {
+    where: TodoWhereUniqueInput
+    data: XOR<TodoUpdateWithoutTeamInput, TodoUncheckedUpdateWithoutTeamInput>
+  }
+
+  export type TodoUpdateManyWithWhereWithoutTeamInput = {
+    where: TodoScalarWhereInput
+    data: XOR<TodoUpdateManyMutationInput, TodoUncheckedUpdateManyWithoutTeamInput>
   }
 
   export type userCreateWithoutTeamsInput = {
@@ -6980,11 +7321,13 @@ export namespace Prisma {
 
   export type TeamCreateWithoutMembersInput = {
     name: string
+    todos?: TodoCreateNestedManyWithoutTeamInput
   }
 
   export type TeamUncheckedCreateWithoutMembersInput = {
     id?: number
     name: string
+    todos?: TodoUncheckedCreateNestedManyWithoutTeamInput
   }
 
   export type TeamCreateOrConnectWithoutMembersInput = {
@@ -7035,17 +7378,20 @@ export namespace Prisma {
 
   export type TeamUpdateWithoutMembersInput = {
     name?: StringFieldUpdateOperationsInput | string
+    todos?: TodoUpdateManyWithoutTeamNestedInput
   }
 
   export type TeamUncheckedUpdateWithoutMembersInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    todos?: TodoUncheckedUpdateManyWithoutTeamNestedInput
   }
 
   export type TodoCreateManyUserInput = {
     id?: number
     title: string
     completed?: boolean
+    teamId?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -7060,12 +7406,14 @@ export namespace Prisma {
     completed?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    team?: TeamUpdateOneWithoutTodosNestedInput
   }
 
   export type TodoUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     completed?: BoolFieldUpdateOperationsInput | boolean
+    teamId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -7074,6 +7422,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     completed?: BoolFieldUpdateOperationsInput | boolean
+    teamId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -7097,6 +7446,15 @@ export namespace Prisma {
     userId: number
   }
 
+  export type TodoCreateManyTeamInput = {
+    id?: number
+    title: string
+    completed?: boolean
+    userId: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type TeamMemberUpdateWithoutTeamInput = {
     user?: userUpdateOneRequiredWithoutTeamsNestedInput
   }
@@ -7109,6 +7467,32 @@ export namespace Prisma {
   export type TeamMemberUncheckedUpdateManyWithoutTeamInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type TodoUpdateWithoutTeamInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    completed?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: userUpdateOneRequiredWithoutTodosNestedInput
+  }
+
+  export type TodoUncheckedUpdateWithoutTeamInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    completed?: BoolFieldUpdateOperationsInput | boolean
+    userId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TodoUncheckedUpdateManyWithoutTeamInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    completed?: BoolFieldUpdateOperationsInput | boolean
+    userId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

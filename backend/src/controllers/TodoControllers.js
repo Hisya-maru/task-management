@@ -35,6 +35,10 @@ exports.createTodo = async (req, res) =>{
     try{
         const{ title,teamId } = req.body;
 
+        const parsedTeamId = teamId
+        ? parseInt(teamId)
+        : null;
+
         if(!title) {
             return res.status(400).json({error:'タイトルを入力してください。'});
         }
@@ -43,7 +47,7 @@ exports.createTodo = async (req, res) =>{
             const member = await prisma.teamMember.findFirst({
                 where: {
                     userId: req.user.userId,
-                    teamId
+                    teamId: parsedTeamId
                 }
             });
             
@@ -56,7 +60,7 @@ exports.createTodo = async (req, res) =>{
             data: {
                 title,
                 userId: req.user.userId,
-                teamId
+                teamId: parsedTeamId
             },
         });
         return res.status(201).json(newTodo);

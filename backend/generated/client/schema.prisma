@@ -20,6 +20,9 @@ model Todo {
   userId Int
   user   user @relation(fields: [userId], references: [id])
 
+  teamId Int?
+  team   Team? @relation(fields: [teamId], references: [id])
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -41,6 +44,7 @@ model Team {
   name String
 
   members TeamMember[]
+  todos   Todo[]
 }
 
 model TeamMember {
