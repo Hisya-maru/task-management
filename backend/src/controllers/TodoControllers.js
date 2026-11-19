@@ -71,34 +71,86 @@ exports.createTodo = async (req, res) =>{
        }
 };
 
-//PUT API
+//Todo更新API
 exports.updateTodo = async (req, res) =>{
     try{
-        const { id } = req.params;//URLからid取得
-        const {title, completed } = req.body;//更新内容をbodyから取得
-//prismaのupdate()を使用して更新
+        const { id } = req.params;
+        const {title, completed } = req.body;
+
+        const todo = await prisma.todo.findUnique({
+            where:{
+                id: Number(id)
+            }
+        });
+
+        if (!todo) {
+            return res.status(404).json({
+                error: "Todoが存在しません。"
+            });
+        }
+        if (todo.teamId) {
+            const member = await prisma.teamMember.findFirst({
+                where: {
+                    userId: req.user.userId,
+                    teamId: todo.teamId
+                }
+            });
+
+            if (!member) {
+            return res.status(403).json({error: 'このTodoを編集することはできません。'});
+        }
+        }
+
         const updatedTodo = await prisma.todo.update({
             where: {id: Number(id)},
             data: { title, completed },
         });
-        res.json(updatedTodo);//更新結果を返す
-    }catch(error){
+        return res.json(updatedTodo);
+    } catch(error) {
         console.error(error);
-        res.status(500).json({error:"Failed to update todo"});
+        return res.status(500).json({error:"変更に失敗しました。"});
         }
 };
 
-//DELETE API
+//Todo削除 API
 exports.deleteTodo = async (req, res) =>{
     try{
+
         const { id } =req.params;
 
-        const deletedTodo =await prisma.todo.delete({
-            where: {id: Number(id)},
+        const todo = await prisma.todo.findUnique({
+            where: {id: Number(id)}
         });
-        res.json(deletedTodo);
-    }catch(error){
+
+        if (!todo) {
+            return res.status(404).json({
+                error: 'Todoが存在しません。'
+            });
+        }
+
+        if (todo.teamId) {
+            const member = await prisma.teamMember.findFirst({
+                where: {
+                    userId: req.user.userId,
+                    teamId: todo.teamId
+                }
+            });
+
+            if (!member) {
+                return res.status(403).json({error: '削除することができません。'});
+            }
+        }
+
+        const deletedTodo = await prisma.todo.delete({
+            where: {
+                id: Number(id)
+            }
+        });
+
+        return res.json(deletedTodo);
+
+    } catch(error) {
         console.error(error);
-        res.status(500).json({error:"Failed to delete todo"});
+        return res.status(500).json({error:"削除に失敗しました。"});
     }
 };
