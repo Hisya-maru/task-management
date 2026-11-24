@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./RegisterForm.css";
 
 export default function RegisterForm() {
     const [name, setName] = useState("");
