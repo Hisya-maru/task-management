@@ -1,4 +1,11 @@
 import {useState, useEffect} from "react";
+import LoginForm from "./components/LoginForm";
+
+function App() {
+    return (
+        <LoginForm />
+    );
+}
 
 function App(){
     const[tasks, setTasks] = useState([]); /*tasksは現在値、setTasksは値を更新する関数*/
